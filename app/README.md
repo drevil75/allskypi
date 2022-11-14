@@ -3,8 +3,9 @@
 
 ````shell
 sudo raspi-config
+# set hostname to allskypi
 ````
-- set hostname to allskypi
+
 
 
 set timezone
@@ -12,10 +13,21 @@ set timezone
 sudo timedatectl set-timezone Europe/Berlin
 ````
 
+````shell
 sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade
 sudo apt install git php python3 fail2ban python3-pip ntpdate -y
 pip3 install RPi.GPIO Adafruit-DHT flask python-telegram-bot ephem python-dotenv
 ````
+
+````shell
+cd /home/pi
+git clone https://github.com/drevil75/allskypi.git
+mv /home/pi/environment/allsky_template.env /home/pi/environment/allsky.env
+nano /home/pi/environment/allsky.env
+
+# edit the variables with your values/credentials
+````
+
 
 ````shell
 git clone https://github.com/silvanmelchior/RPi_Cam_Web_Interface.git
@@ -35,8 +47,10 @@ sudo chmod 777 /var/www/html/index.html
 ````shell
 # timeserver is the local router (fritzbox)
 sudo crontab -e
-@reboot ntpdate -s 192.168.1.1
+# paste into the editor
 0 */6 * * * ntpdate -s 192.168.1.1
+
+# write CTRL+O and close CTRL+X the editor
 ````
 
 create service for python script
@@ -68,4 +82,4 @@ ctrl+x to close nano
 sudo systemctl daemon-reload && sudo systemctl enable allsky && sudo systemctl start allsky
 ````
 
-http://<ip or name>:8080
+open http://allskypi:8080 in your brwoser
