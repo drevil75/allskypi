@@ -26,6 +26,14 @@ mv /home/pi/environment/allsky_template.env /home/pi/environment/allsky.env
 nano /home/pi/environment/allsky.env
 
 # edit the variables with your values/credentials
+INFLUX_TOKEN=<access token of your influx db>
+INFLUX_ORG=<bucket name>
+INFLUX_BUCKET=allsky
+INFLUX_URL="http://<url of your influxDB>:18086"
+device_lat = <gps latitude 51.1234>
+device_lng = <gps longitude 12.1234>
+TELEGRAM_TOKEN=<token of yout telegram bot>
+TELEGRAM_TO=<ID of the telegram recipient(s) - seperate with comma ... id1,id2,id3... >
 ````
 
 
