@@ -12,7 +12,7 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 
-config = dotenv_values("./environment/.env")
+config = dotenv_values("./environment/allsky.env")
 INFLUX_TOKEN = config['INFLUX_TOKEN']
 INFLUX_ORG = config['INFLUX_ORG']
 INFLUX_BUCKET = config['INFLUX_BUCKET']
