@@ -57,13 +57,6 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(fanpin, GPIO.OUT)
 GPIO.setup(ledpin, GPIO.OUT)
 
-
-def flogger(txt):
-     pass
-#    f = open(logpath, mode='a', encoding='utf-8')
-#    f.write(str(txt) + '\n')
-#    f.close
-
 def day_or_night():
 
    obs = ephem.Observer()
@@ -98,7 +91,6 @@ def loop():
     humi, temp = Adafruit_DHT.read_retry(sensortype, sensorpin)
     humi, temp = round(humi,1), round(temp,1)
     print(humi, temp)
-    flogger(f'temp={temp}, humi={humi}')
 
     # # Temperatur Alarm
     if temp >= alarmMaxTemp and alarm_high_sent == 0:
@@ -139,7 +131,6 @@ def loop():
 
     now = str(now).split('.')[0]
     data = json.dumps({"temp": temp, "humi": humi, "fan": fan, "now": now})
-    flogger(f'now={now}')
 
     f = open(datafile,mode='w',encoding='utf-8')
     f.write(data)
