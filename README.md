@@ -73,7 +73,7 @@ After=network.target
 
 [Service]
 User=pi
-WorkingDirectory=/home/pi/allskypi/
+WorkingDirectory=/home/pi/allskypi/app/
 ExecStart=python3 tempControl.py
 Restart=always
 

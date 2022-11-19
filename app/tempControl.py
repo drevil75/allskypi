@@ -63,22 +63,22 @@ def flogger(txt):
 def day_or_night():
 
    obs = ephem.Observer()
-
-   obs.pressure = 0
+   obs.pressure = 1000
+   obs.elevation = 156
    obs.lat = device_lat
    obs.lon = device_lng
-   obs.date = datetime.datetime.today() - datetime.timedelta(hours=1, minutes=10)
+   obs.date = datetime.datetime.today() - datetime.timedelta(hours=1, minutes=0)
 
    sun = ephem.Sun()
    sun.compute(obs)
+   sun_angle = float(sun.alt) * 57.2957795 # Convert Radians to degrees
 
-   alth, altm, _ = str(sun.alt).split(':')
-   alth = int(alth)
-   altm = int(altm)
-   alt = alth - round(1 / (60 / altm),2)
-   flogger(f'sun elevation={alt}')
+   # alth, altm, _ = str(sun.alt).split(':')
+   # alth = int(alth)
+   # altm = int(altm)
+   # alt = alth - round(1 / (60 / altm),2)
 
-   if alt < -1.5:
+   if sun_angle < 0.0:
       sun_status = "night"
    else:
       sun_status = "day"
