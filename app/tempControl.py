@@ -5,7 +5,7 @@ import Adafruit_DHT
 import RPi.GPIO as GPIO
 import time, datetime
 import configparser
-# import telegram_client # deprecated
+import pushover_client
 import ephem
 from dotenv import dotenv_values
 from influxdb_client import InfluxDBClient, Point, WritePrecision
@@ -98,12 +98,10 @@ def loop():
 
     # # Temperatur Alarm
     if temp >= alarmMaxTemp:
-        pass
-        # telegram_client.sendTxtMsg(TELEGRAM_TOKEN,TELEGRAM_TO,f'Temperature alarm: In the dome are' + str(temp) + 'degree celsius.')
+        pushover_client.send_pushover_message("Allsky Dome Alarm",f'temp in dome is' + str(temp) + 'degree celsius.')
 
     if temp < alarmMinTemp:
-        pass
-        # telegram_client.sendTxtMsg(TELEGRAM_TOKEN,TELEGRAM_TO,f'Temperature alarm deescalation: In the dome are {temp} degree celsius.')
+        pushover_client.send_pushover_message("Allsky Dome Alarm Deescalation",f'temp in dome is {temp} degree celsius.')
 
     if type(temp) is not float:
         temp = 0.0
