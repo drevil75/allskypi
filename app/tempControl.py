@@ -1,5 +1,5 @@
 #sudo apt install Adafruit-DHT RPi.GPIO
-# pip3 install ephem
+# pip3 install ephem dotenv requests
 
 import Adafruit_DHT
 import RPi.GPIO as GPIO
@@ -7,6 +7,7 @@ import time, datetime
 import configparser
 import pushover_client
 import ephem
+import os, json
 from dotenv import dotenv_values
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
@@ -48,6 +49,9 @@ templatefile = config['default']['templatefile']
 indexfile = config['default']['indexfile']
 datafile = config['default']['datafile']
 logpath = config['default']['logpath']
+dome_cam_img = config['default']['dome_cam_img']
+
+raspicam_shell = f'raspistill -o {dome_cam_img} -q 40 -a "AllskyDomeCam" -a 12'
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(fanpin, GPIO.OUT)
@@ -55,9 +59,10 @@ GPIO.setup(ledpin, GPIO.OUT)
 
 
 def flogger(txt):
-   f = open(logpath, mode='a', encoding='utf-8')
-   f.write(str(txt) + '\n')
-   f.close
+     pass
+#    f = open(logpath, mode='a', encoding='utf-8')
+#    f.write(str(txt) + '\n')
+#    f.close
 
 def day_or_night():
 
@@ -131,6 +136,10 @@ def loop():
     flogger(f'DayOrNight={dn}')
     if dn == 'night':
         GPIO.output(ledpin, GPIO.HIGH)
+        time.sleep(2)
+        os.system(raspicam_shell)
+        time.sleep(2)
+        GPIO.output(ledpin, GPIO.LOW)
     else:
         GPIO.output(ledpin, GPIO.LOW)
 
@@ -149,7 +158,8 @@ def loop():
     f.close
 
     now = str(now).split('.')[0]
-    data = f'{temp},{humi},{fan},{now}'
+    data = json.dumps({"temp": temp, "humi": humi, "fan": fan, "now": now})
+    # data = f'{temp},{humi},{fan},{now}'
     print(fanONtemp, fanOFFtemp)
     flogger(f'now={now}')
 
