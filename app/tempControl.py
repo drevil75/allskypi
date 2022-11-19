@@ -92,6 +92,8 @@ def day_or_night():
 
 
 def loop():
+    global alarm_high_sent
+    global alarm_low_sent
     now = datetime.datetime.now()
     fan = 'OFF'
     iFan = 0
