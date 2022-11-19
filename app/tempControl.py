@@ -11,6 +11,8 @@ from dotenv import dotenv_values
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
+alarm_high_sent = 0
+alarm1_low_sent = 0
 
 config = dotenv_values("../environment/allsky.env")
 INFLUX_TOKEN = config['INFLUX_TOKEN']
@@ -97,11 +99,15 @@ def loop():
     flogger(f'temp={temp}, humi={humi}')
 
     # # Temperatur Alarm
-    if temp >= alarmMaxTemp:
-        pushover_client.send_pushover_message("Allsky Dome Alarm",f'temp in dome is' + str(temp) + 'degree celsius.')
+    if temp >= alarmMaxTemp and alarm_high_sent == 0:
+        pushover_client.send_pushover_message("Allsky Dome Alarm", f'temp in dome is' + str(temp) + 'degree celsius.')
+        alarm_high_sent = 1
+        alarm_low_sent = 0
 
-    # if temp < alarmMinTemp:
-    #     pushover_client.send_pushover_message("Allsky Dome Alarm Deescalation",f'temp in dome is {temp} degree celsius.')
+    if temp < alarmMinTemp and alarm_low_sent == 0 and alarm_high_sent == 1:
+        pushover_client.send_pushover_message("Allsky Dome Alarm Deescalation", f'temp in dome is {temp} degree celsius.')
+        alarm_low_sent = 1
+        alarm_high_sent = 0
 
     if type(temp) is not float:
         temp = 0.0
