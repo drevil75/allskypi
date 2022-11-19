@@ -78,11 +78,6 @@ def day_or_night():
    sun_angle = float(sun.alt) * 57.2957795 # Convert Radians to degrees
    print(f'sun angle to horizon={sun_angle}')
 
-   # alth, altm, _ = str(sun.alt).split(':')
-   # alth = int(alth)
-   # altm = int(altm)
-   # alt = alth - round(1 / (60 / altm),2)
-
    if sun_angle < 0.0:
       sun_status = "night"
    else:
@@ -133,10 +128,7 @@ def loop():
         fan = 'OFF'
         iFan = 0
 
-    flogger(f'fan={fan}, iFan={iFan}')
-    dn = day_or_night()
-    flogger(f'DayOrNight={dn}')
-    if dn == 'night':
+    if day_or_night() == 'night':
         GPIO.output(ledpin, GPIO.HIGH)
         time.sleep(2)
         os.system(raspicam_shell)
@@ -161,8 +153,6 @@ def loop():
 
     now = str(now).split('.')[0]
     data = json.dumps({"temp": temp, "humi": humi, "fan": fan, "now": now})
-    # data = f'{temp},{humi},{fan},{now}'
-    print(fanONtemp, fanOFFtemp)
     flogger(f'now={now}')
 
     f = open(datafile,mode='w',encoding='utf-8')
