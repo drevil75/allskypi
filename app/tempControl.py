@@ -17,7 +17,6 @@ INFLUX_TOKEN = config['INFLUX_TOKEN']
 INFLUX_ORG = config['INFLUX_ORG']
 INFLUX_BUCKET = config['INFLUX_BUCKET']
 INFLUX_URL = config['INFLUX_URL']
-TELEGRAM_TOKEN = config['TELEGRAM_TOKEN']
 device_lat = config['device_lat']
 device_lng = config['device_lng']
 TELEGRAM_TOKEN = config['TELEGRAM_TOKEN']
@@ -47,8 +46,6 @@ templatefile = config['default']['templatefile']
 indexfile = config['default']['indexfile']
 datafile = config['default']['datafile']
 logpath = config['default']['logpath']
-device_lat = config['default']['device_lat']
-device_lng = config['default']['device_lng']
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(fanpin, GPIO.OUT)
@@ -72,6 +69,7 @@ def day_or_night():
    sun = ephem.Sun()
    sun.compute(obs)
    sun_angle = float(sun.alt) * 57.2957795 # Convert Radians to degrees
+   print(f'sun angle to horizon={sun_angle}')
 
    # alth, altm, _ = str(sun.alt).split(':')
    # alth = int(alth)
@@ -100,10 +98,12 @@ def loop():
 
     # # Temperatur Alarm
     if temp >= alarmMaxTemp:
-        telegram_client.sendTxtMsg(TELEGRAM_TOKEN,TELEGRAM_TO,f'Temperature alarm: In the dome are' + str(temp) + 'degree celsius.')
+        pass
+        # telegram_client.sendTxtMsg(TELEGRAM_TOKEN,TELEGRAM_TO,f'Temperature alarm: In the dome are' + str(temp) + 'degree celsius.')
 
     if temp < alarmMinTemp:
-        telegram_client.sendTxtMsg(TELEGRAM_TOKEN,TELEGRAM_TO,f'Temperature alarm deescalation: In the dome are {temp} degree celsius.')
+        pass
+        # telegram_client.sendTxtMsg(TELEGRAM_TOKEN,TELEGRAM_TO,f'Temperature alarm deescalation: In the dome are {temp} degree celsius.')
 
     if type(temp) is not float:
         temp = 0.0
