@@ -47,8 +47,8 @@ templatefile = config['default']['templatefile']
 indexfile = config['default']['indexfile']
 datafile = config['default']['datafile']
 logpath = config['default']['logpath']
-device_lat = float(config['default']['device_lat'])
-device_lng = float(config['default']['device_lng'])
+device_lat = config['default']['device_lat']
+device_lng = config['default']['device_lng']
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(fanpin, GPIO.OUT)
