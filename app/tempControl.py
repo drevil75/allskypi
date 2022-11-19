@@ -5,7 +5,7 @@ import Adafruit_DHT
 import RPi.GPIO as GPIO
 import time, datetime
 import configparser
-import telegram_client
+# import telegram_client # deprecated
 import ephem
 from dotenv import dotenv_values
 from influxdb_client import InfluxDBClient, Point, WritePrecision
@@ -19,8 +19,8 @@ INFLUX_BUCKET = config['INFLUX_BUCKET']
 INFLUX_URL = config['INFLUX_URL']
 device_lat = config['device_lat']
 device_lng = config['device_lng']
-TELEGRAM_TOKEN = config['TELEGRAM_TOKEN']
-TELEGRAM_TO = config['TELEGRAM_TO']
+# TELEGRAM_TOKEN = config['TELEGRAM_TOKEN']
+# TELEGRAM_TO = config['TELEGRAM_TO']
 
 client = InfluxDBClient(url=INFLUX_URL, token=INFLUX_TOKEN)
 write_api = client.write_api(write_options=SYNCHRONOUS)
