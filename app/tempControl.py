@@ -137,20 +137,6 @@ def loop():
     else:
         GPIO.output(ledpin, GPIO.LOW)
 
-
-    f = open(templatefile,mode='r',encoding='utf-8')
-    html = f.read()
-    f.close
-
-    html = html.replace('%temp%',str(temp))
-    html = html.replace('%humi%',str(humi))
-    html = html.replace('%fan%',str(fan))
-    html = html.replace('%ts%',str(now))
-
-    f = open(indexfile,mode='w',encoding='utf-8')
-    f.write(html)
-    f.close
-
     now = str(now).split('.')[0]
     data = json.dumps({"temp": temp, "humi": humi, "fan": fan, "now": now})
     flogger(f'now={now}')

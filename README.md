@@ -7,7 +7,6 @@ sudo raspi-config
 ````
 
 
-
 set timezone
 ````shell
 sudo timedatectl set-timezone Europe/Berlin
@@ -15,8 +14,8 @@ sudo timedatectl set-timezone Europe/Berlin
 
 ````shell
 sudo apt update && sudo apt upgrade -y && sudo apt dist-upgrade
-sudo apt install git php python3 fail2ban python3-pip ntpdate -y
-pip3 install RPi.GPIO Adafruit-DHT flask python-telegram-bot ephem python-dotenv
+sudo apt install git python3 fail2ban python3-pip ntpdate apache2 -y
+pip3 install RPi.GPIO Adafruit-DHT python-telegram-bot ephem python-dotenv
 ````
 
 ````shell
