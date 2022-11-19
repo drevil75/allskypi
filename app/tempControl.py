@@ -13,7 +13,7 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
 alarm_high_sent = 0
-alarm1_low_sent = 0
+alarm_low_sent = 0
 
 config = dotenv_values("../environment/allsky.env")
 INFLUX_TOKEN = config['INFLUX_TOKEN']
