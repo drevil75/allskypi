@@ -100,8 +100,8 @@ def loop():
     if temp >= alarmMaxTemp:
         pushover_client.send_pushover_message("Allsky Dome Alarm",f'temp in dome is' + str(temp) + 'degree celsius.')
 
-    if temp < alarmMinTemp:
-        pushover_client.send_pushover_message("Allsky Dome Alarm Deescalation",f'temp in dome is {temp} degree celsius.')
+    # if temp < alarmMinTemp:
+    #     pushover_client.send_pushover_message("Allsky Dome Alarm Deescalation",f'temp in dome is {temp} degree celsius.')
 
     if type(temp) is not float:
         temp = 0.0
